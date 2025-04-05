@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}New Campaign{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto">
+    <h1 class="text-2xl font-bold mb-6">Create New Campaign</h1>
+    
+    <form method="POST" enctype="multipart/form-data">
+        <div class="mb-4">
+            <label for="name" class="block text-gray-700 font-medium mb-2">Campaign Name</label>
+            <input type="text" id="name" name="name" required
+                   class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <div class="mb-4">
+            <label for="vector_type" class="block text-gray-700 font-medium mb-2">Attack Vector</label>
+            <select id="vector_type" name="vector_type" required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <option value="">Select vector type</option>
+                {% for vector in vector_types %}
+                <option value="{{ vector }}">{{ vector|capitalize }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="targets" class="block text-gray-700 font-medium mb-2">Targets (CSV)</label>
+            <input type="file" id="targets" name="targets" accept=".csv,.txt" required
+                   class="w-full px-4 py-2 border rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+            <p class="text-sm text-gray-500 mt-1">CSV format: email,name,position (header row required)</p>
+        </div>
+
+        <div class="mb-4">
+            <input type="checkbox" id="sandbox_mode" name="sandbox_mode" checked
+                   class="mr-2">
+            <label for="sandbox_mode" class="text-gray-700">Enable Sandbox Mode</label>
+        </div>
+
+        <div class="flex justify-end">
+            <button type="submit" 
+                    class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                <i class="fas fa-save mr-2"></i>Create Campaign
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
