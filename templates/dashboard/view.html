@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - {{ campaign.name }}{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-6">
+    <h1 class="text-2xl font-bold mb-4">{{ campaign.name }}</h1>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div class="bg-blue-50 p-4 rounded-lg">
+            <h3 class="text-lg font-semibold text-blue-800">Targets</h3>
+            <p class="text-3xl font-bold">{{ stats.targets }}</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+            <h3 class="text-lg font-semibold text-green-800">Emails Sent</h3>
+            <p class="text-3xl font-bold">{{ stats.emails_sent }}</p>
+        </div>
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h3 class="text-lg font-semibold text-yellow-800">Emails Opened</h3>
+            <p class="text-3xl font-bold">{{ stats.emails_opened }}</p>
+        </div>
+        <div class="bg-red-50 p-4 rounded-lg">
+            <h3 class="text-lg font-semibold text-red-800">Credentials Captured</h3>
+            <p class="text-3xl font-bold">{{ stats.credentials_captured }}</p>
+        </div>
+    </div>
+
+    {% if engagement_chart %}
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold mb-2">Engagement Timeline</h2>
+        <img src="data:image/png;base64,{{ engagement_chart }}" alt="Engagement Chart" class="w-full">
+    </div>
+    {% endif %}
+
+    <div class="flex space-x-4">
+        <a href="/campaign/{{ campaign.id }}/report" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <i class="fas fa-file-pdf mr-2"></i>Generate Report
+        </a>
+        <a href="/campaign/{{ campaign.id }}/targets" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+            <i class="fas fa-users mr-2"></i>View Targets
+        </a>
+    </div>
+</div>
+{% endblock %}
